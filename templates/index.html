@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GuessMaster | Number Guessing Game</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="/" class="logo">Guess<span>Master</span></a>
+        <span class="level">LEVEL 01</span>
+    </header>
+
+    <main class="game-container">
+
+        <section class="game-card">
+
+            <div class="game-icon">🎯</div>
+
+            <p class="eyebrow">THINK SMART. GUESS RIGHT.</p>
+
+            <h1>Number Guessing <span>Game</span></h1>
+
+            <p class="description">
+                A secret number is waiting for you.
+                Follow the hints, trust your instincts,
+                and find the correct number!
+            </p>
+
+            <div class="range-box">
+                <p>GUESS A NUMBER BETWEEN</p>
+
+                <div class="number-range">
+                    <span>1</span>
+                    <span class="range-dash">—</span>
+                    <span>100</span>
+                </div>
+            </div>
+
+            {% if not game_over %}
+            <form action="/" method="POST" class="guess-form">
+
+                <label for="guess">ENTER YOUR GUESS</label>
+
+                <input
+                    type="number"
+                    id="guess"
+                    name="guess"
+                    min="1"
+                    max="100"
+                    placeholder="Enter 1–100"
+                    required
+                    autofocus
+                >
+
+                <button type="submit" class="guess-button">
+                    Check My Guess <span>→</span>
+                </button>
+
+            </form>
+            {% endif %}
+
+            <div class="message-box {{ message_type }}"
+                 role="status" aria-live="polite">
+
+                <span class="message-icon">{{ message_icon }}</span>
+
+                <p>{{ message }}</p>
+
+            </div>
+
+            <div class="stats">
+
+                <div class="stat-box">
+                    <span class="stat-icon">👣</span>
+                    <p class="stat-label">ATTEMPTS</p>
+                    <h2>{{ attempts }}</h2>
+                </div>
+
+                <div class="stat-box">
+                    <span class="stat-icon">🏆</span>
+                    <p class="stat-label">GAME STATUS</p>
+
+                    <h2>
+                        {% if won %}
+                            Won!
+                        {% else %}
+                            Playing
+                        {% endif %}
+                    </h2>
+                </div>
+
+            </div>
+
+            {% if game_over %}
+            <form action="/" method="POST" class="restart-form">
+
+                <button
+                    type="submit"
+                    name="action"
+                    value="restart"
+                    class="guess-button restart-button">
+                    Play Again ↻
+                </button>
+
+            </form>
+            {% endif %}
+
+            <p class="tip">
+                ✨ Every guess brings you closer!
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>GUESSMASTER © 2026 | Built with Python & Web Development</p>
+    </footer>
+
+</body>
+</html>
